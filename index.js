@@ -67,11 +67,11 @@ app.post('/refresh-token', (req, res) => {
 
 app.post('/auth/o2/token', (req, res) => {
   console.log("auth api called")
-  const { grant_type, code, client_id, client_secret, redirect_uri } = req.query;
+  const { grant_type, code, client_id, redirect_uri } = req.body;
   console.log(req.query)
   console.log(req.body)
   console.log(req.params)
-  if (!grant_type || !code || !client_id || !client_secret || !redirect_uri) {
+  if (!grant_type || !code || !client_id || !redirect_uri) {
     return res.status(400).json({ message: 'Missing required parameters' });
   }
 
@@ -79,12 +79,17 @@ app.post('/auth/o2/token', (req, res) => {
     return res.status(400).json({ message: 'Invalid grant_type' });
   }
 
-  if (client_id !== clientId || client_secret !== secretKey) {
+  if (client_id !== clientId) {
     return res.status(401).json({ message: 'Invalid client credentials' });
   }
 
-  const accessToken = jwt.sign({ clientId: client_id }, secretKey, { expiresIn: '1h' });
-  res.json({ access_token: accessToken });
+  const accessToken = jwt.sign({ clientId: client_id }, secretKey, { expiresIn: '2h' });
+  // res.json({ access_token: accessToken });
+  res.json({
+    access_token:accessToken,
+    token_type:"bearer",
+    expires_in:7200,
+ });
 });
 
 
