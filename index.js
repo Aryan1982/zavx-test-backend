@@ -66,8 +66,9 @@ app.post('/refresh-token', (req, res) => {
 
 
 app.post('/auth/o2/token', (req, res) => {
+  console.log("auth api called")
   const { grant_type, code, client_id, client_secret, redirect_uri } = req.query;
-  // console.log(req.query)
+  console.log(req.query)
   if (!grant_type || !code || !client_id || !client_secret || !redirect_uri) {
     return res.status(400).json({ message: 'Missing required parameters' });
   }
