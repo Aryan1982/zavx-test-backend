@@ -18,9 +18,13 @@ const secretKey = 'thisismysecretkey';
 
 const clientId = 'thisismyclientid';
 
+const authorizationCodes = {};
+const redirectUri = 'https://pitangui.amazon.com/api/skill/link/M2AAAAAAAAAAAA';
+
 // Login route
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
+  const { client_id:reqClientId, redirect_uri:reqRedirectUri,state:reqState } = req.query;
 
   const user = users.find(user => user.username === username);
 
@@ -28,9 +32,12 @@ app.post('/login', (req, res) => {
     return res.status(401).json({ message: 'Invalid username or password' });
   }
 
-  const token = jwt.sign({ userId: user.id, clientId: clientId }, secretKey, { expiresIn: '1h' });
+  const token = jwt.sign({ userId: user.id, clientId: reqClientId }, secretKey, { expiresIn: '1h' });
+  
+  const authorizationCode = Math.random().toString(36).substring(7); // Generate random authorization code
+  authorizationCodes[authorizationCode] = { reqClientId, reqRedirectUri };
 
-  res.json({ message: 'Login successful', token });
+  res.redirect(`${reqRedirectUri}?code=${authorizationCode}&state=${reqState}`);;
 });
 
 // Token refresh route
