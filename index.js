@@ -32,7 +32,7 @@ app.post('/login', (req, res) => {
     return res.status(401).json({ message: 'Invalid username or password' });
   }
 
-  const token = jwt.sign({ userId: user.id, clientId: client_id }, secretKey, { expiresIn: '1h' });
+  // const token = jwt.sign({ userId: user.id, clientId: client_id }, secretKey, { expiresIn: '1h' });
   
   const authorizationCode = Math.random().toString(36).substring(7); // Generate random authorization code
   authorizationCodes[authorizationCode] = { client_id, reqRedirectUri };
@@ -66,8 +66,8 @@ app.post('/refresh-token', (req, res) => {
 
 
 app.post('/auth/o2/token', (req, res) => {
-  const { grant_type, code, client_id, client_secret, redirect_uri } = req.body;
-
+  const { grant_type, code, client_id, client_secret, redirect_uri } = req.query;
+  // console.log(req.query)
   if (!grant_type || !code || !client_id || !client_secret || !redirect_uri) {
     return res.status(400).json({ message: 'Missing required parameters' });
   }
