@@ -116,29 +116,6 @@ app.post('/test', (req,res)=>{
   res.json({"message":"success"});
 })
 
-function replaceTrueWithPythonTrue(obj) {
-  // Check if the current object is an array
-  if (Array.isArray(obj)) {
-      // If it's an array, iterate over its elements
-      return obj.map(element => replaceTrueWithPythonTrue(element));
-  }
-  // If it's an object, iterate over its keys and values
-  else if (typeof obj === 'object' && obj !== null) {
-      return Object.fromEntries(
-          Object.entries(obj).map(([key, value]) => {
-              // Recursively call the function for nested objects
-              return [key, replaceTrueWithPythonTrue(value)];
-          })
-      );
-  }
-  // If it's a boolean value and is true, replace it with "True"
-  else if (obj === true) {
-      return "True";
-  }
-  // Otherwise, return the original value
-  return obj;
-}
-
 
 app.post('/getUserAppliances',(req,res)=>{
   console.log('called user appliances')
@@ -149,7 +126,6 @@ app.post('/getUserAppliances',(req,res)=>{
         "modelName": "Smart Switch",
         "friendlyName": "Switch Zavx",
         "friendlyDescription": "Switch that can only be turned on/off",
-        "isReachable": true,
         "actions": [
             "turnOn",
             "turnOff"
@@ -162,7 +138,6 @@ app.post('/getUserAppliances',(req,res)=>{
         "modelName": "Smart Light ",
         "friendlyName": "Light Zavx",
         "friendlyDescription": "002 Light that is dimmable and can change color and color temperature",
-        "isReachable": true,
         "actions": [
             "turnOn",
             "turnOff",
@@ -182,7 +157,6 @@ app.post('/getUserAppliances',(req,res)=>{
         "modelName": "Smart White Light",
         "friendlyName": "White Light Zavx",
         "friendlyDescription": "003 Light that is dimmable and can change color temperature only",
-        "isReachable": true,
         "actions": [
             "turnOn",
             "turnOff",
@@ -197,8 +171,7 @@ app.post('/getUserAppliances',(req,res)=>{
     }
 ];
 
-const modifiedData = replaceTrueWithPythonTrue(SAMPLE_APPLIANCES);
-    res.json({"SAMPLE_APPLIANCES":modifiedData})
+    res.json({"SAMPLE_APPLIANCES":SAMPLE_APPLIANCES})
 })
 
 app.listen(port, () => {
