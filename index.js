@@ -34,7 +34,7 @@ app.post('/login', (req, res) => {
 
   // const token = jwt.sign({ userId: user.id, clientId: client_id }, secretKey, { expiresIn: '1h' });
   
-  const authorizationCode = Math.random().toString(36).substring(7); // Generate random authorization code
+  const authorizationCode = user.id; // Generate random authorization code
   authorizationCodes[authorizationCode] = { client_id, reqRedirectUri };
   if(user){
     res.status(200).json({redirect:`${reqRedirectUri}?code=${authorizationCode}&state=${reqState}`});
