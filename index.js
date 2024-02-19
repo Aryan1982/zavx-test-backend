@@ -193,7 +193,7 @@ app.post('/getUserAppliances', (req, res) => {
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       console.error('Error decoding token:', err);
-      return res.status(400).json({ error: 'Invalid token' });
+      return
     }
     
     console.log('decoded', decoded);
