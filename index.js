@@ -193,14 +193,15 @@ app.post('/getUserAppliances', (req, res) => {
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       console.error('Error decoding token:', err);
-      return
+      return res.status(400).json({ error: 'Invalid token' });
     }
     
     console.log('decoded', decoded);
     // Find user's devices based on the decoded user ID
     const userId = decoded.code;
     const userDevices = userData.find(user => user.id == userId)?.devices;
-
+    console.log('userDevices', userDevices);
+    
     if (!userDevices) {
       return res.status(404).json({ error: 'User devices not found' });
     }
