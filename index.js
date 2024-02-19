@@ -102,7 +102,7 @@ app.post('/auth/o2/token', (req, res) => {
     return res.status(401).json({ message: 'Invalid client credentials' });
   }
 
-  const accessToken = jwt.sign({ clientId: client_id }, secretKey, { expiresIn: '2h' });
+  const accessToken = jwt.sign({ clientId: client_id, code:code }, secretKey, { expiresIn: '2h' });
   // res.json({ access_token: accessToken });
   res.json({
     access_token:accessToken,
