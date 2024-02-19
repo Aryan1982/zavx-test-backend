@@ -43,27 +43,46 @@ app.post('/login', (req, res) => {
 
 // Token refresh route
 app.post('/refresh-token', (req, res) => {
-  const refreshToken = req.body.refreshToken;
+  const userid = 1
 
-  if (!refreshToken) {
-    return res.status(400).json({ message: 'Refresh token is required' });
-  }
 
-  try {
-    const decoded = jwt.verify(refreshToken, secretKey);
+  const accessToken = jwt.sign({ userId:userid }, secretKey, { expiresIn: '2h' });
 
-    if (decoded.exp < Date.now() / 1000) {
-      return res.status(401).json({ message: 'Refresh token has expired' });
-    }
+  res.json({token:accessToken})
+  // const refreshToken = req.body.refreshToken;
+  
+  // if (!refreshToken) {
+  //   return res.status(400).json({ message: 'Refresh token is required' });
+  // }
 
-    const accessToken = jwt.sign({ userId: decoded.userId, clientId: clientId }, secretKey, { expiresIn: '2h' });
+  // try {
+  //   const decoded = jwt.verify(refreshToken, secretKey);
 
-    res.json({ accessToken });
-  } catch (error) {
-    return res.status(401).json({ message: 'Invalid refresh token' });
-  }
+  //   if (decoded.exp < Date.now() / 1000) {
+  //     return res.status(401).json({ message: 'Refresh token has expired' });
+  //   }
+
+  //   const accessToken = jwt.sign({ userId: decoded.userId, clientId: clientId }, secretKey, { expiresIn: '2h' });
+
+  //   res.json({ accessToken });
+  // } catch (error) {
+  //   return res.status(401).json({ message: 'Invalid refresh token' });
+  // }
 });
 
+app.post('/decodeToken', (req,res)=>{
+ const { token } = req.body;
+
+  console.log(token);
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      console.error('Error decoding token:', err);
+      return res.status(400).json({ error: 'Invalid token' });
+    }
+    console.log('Decoded token:', decoded);
+    res.json(decoded);
+  });
+})
 
 app.post('/auth/o2/token', (req, res) => {
   console.log("auth api called")
@@ -92,6 +111,10 @@ app.post('/auth/o2/token', (req, res) => {
  });
 });
 
+app.post('/test', (req,res)=>{
+  console.log(req.body);
+  res.json({"message":"success"});
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
