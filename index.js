@@ -184,7 +184,7 @@ app.post('/test', (req,res)=>{
 app.post('/getUserAppliances', (req, res) => {
   console.log('called user appliances');
   const { token } = req.body;
-  console.log(token);
+  console.log(req.body);
   if (!token.startsWith('ey')) {
     console.log('waiting for actual token')
     return
