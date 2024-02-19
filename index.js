@@ -191,11 +191,11 @@ app.post('/getUserAppliances', (req, res) => {
       console.error('Error decoding token:', err);
       return res.status(400).json({ error: 'Invalid token' });
     }
-    console.log('Decoded token:', decoded);
-
+    
+    console.log('decoded', decoded);
     // Find user's devices based on the decoded user ID
     const userId = decoded.code;
-    const userDevices = userData.find(user => user.id === userId)?.devices;
+    const userDevices = userData.find(user => user.id == userId)?.devices;
 
     if (!userDevices) {
       return res.status(404).json({ error: 'User devices not found' });
