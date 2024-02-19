@@ -184,11 +184,11 @@ app.post('/test', (req,res)=>{
 app.post('/getUserAppliances', (req, res) => {
   console.log('called user appliances');
   const { token } = req.body;
+  console.log(token);
   if (!token.startsWith('ey')) {
     console.log('waiting for actual token')
     return
   }
-  console.log(token);
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       console.error('Error decoding token:', err);
