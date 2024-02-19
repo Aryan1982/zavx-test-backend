@@ -189,6 +189,7 @@ app.post('/getUserAppliances', (req, res) => {
     console.log('waiting for actual token')
     return
   }
+  console.log('token verified')
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       console.error('Error decoding token:', err);
