@@ -141,7 +141,7 @@ function replaceTrueWithPythonTrue(obj) {
 
 
 app.post('/getUserAppliances',(req,res)=>{
-
+  console.log('called user appliances')
   const SAMPLE_APPLIANCES = [
     {
         "applianceId": "endpoint-001-56",
