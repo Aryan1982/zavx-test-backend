@@ -10,7 +10,7 @@ const userData = [
                     "applianceId": "endpoint-001-56",
                     "manufacturerName": "AnnantaLabs",
                     "modelName": "Smart Switch",
-                    "friendlyName": "Switch Zavx",
+                    "friendlyName": "Switch Zavx user1",
                     "friendlyDescription": "Switch that can only be turned on/off",
                     "actions": [
                         "turnOn",
@@ -22,7 +22,7 @@ const userData = [
                     "applianceId": "endpoint-002-56",
                     "manufacturerName": "AnnantaLabs",
                     "modelName": "Smart Light",
-                    "friendlyName": "Light Zavx",
+                    "friendlyName": "Light Zavx user1",
                     "friendlyDescription": "002 Light that is dimmable and can change color and color temperature",
                     "actions": [
                         "turnOn",
@@ -48,7 +48,7 @@ const userData = [
                     "applianceId": "endpoint-003",
                     "manufacturerName": "Sample Manufacturer",
                     "modelName": "Smart White Light",
-                    "friendlyName": "White Light Zavx",
+                    "friendlyName": "White Light Zavx user2",
                     "friendlyDescription": "003 Light that is dimmable and can change color temperature only",
                     "actions": [
                         "turnOn",
